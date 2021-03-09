@@ -7,7 +7,7 @@
 ;; Description: Interface for node-keytar.
 ;; Keyword: keytar password credential secret security
 ;; Version: 0.1.0
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "24.4"))
 ;; URL: https://github.com/emacs-grammarly/keytar
 
 ;; This file is NOT part of GNU Emacs.
@@ -39,14 +39,21 @@
 ;; (@* "Util" )
 ;;
 
-(defun keytar--safe-execute (in-cmd)
-  "Correct way to check if IN-CMD execute with or without errors."
-  (let ((inhibit-message t) (message-log-max nil))
-    (= 0 (shell-command in-cmd))))
+(defun keytar--execute (in-cmd)
+  "Return non-nil if IN-CMD executed succesfully."
+  (save-window-excursion
+    (let ((inhibit-message t) (message-log-max nil))
+      (= 0 (shell-command in-cmd)))))
+
+(defun keytar--execute-string (in-cmd)
+  "Return result in string after IN-CMD is executed."
+  (save-window-excursion
+    (let ((inhibit-message t) (message-log-max nil))
+      (string-trim (shell-command-to-string in-cmd)))))
 
 (defun keytar-installed-p ()
   "Return non-nil if `keytar-cli-2' installed succesfully."
-  (keytar--safe-execute "keytar --help"))
+  (keytar--execute "keytar --help"))
 
 (defun keytar--ckeck ()
   "Key before using `keytar-cli-2'."
@@ -56,9 +63,10 @@
 (defun keytar-install ()
   "Install keytar package through npm."
   (interactive)
-  (if (keytar--safe-execute (format "npm install -g %s" keytar-package-name))
+  (if (keytar--execute (format "npm install -g %s" keytar-package-name))
       (message "Successfully install %s through `npm`!" keytar-package-name)
-    (user-error "Failed to install %s through `npm`..." keytar-package-name)))
+    (user-error "Failed to install %s through `npm`, make sure you have npm installed"
+                keytar-package-name)))
 
 ;;
 ;; (@* "API" )
@@ -67,32 +75,32 @@
 (defun keytar-get-password (service account)
   "Get the stored password for the SERVICE and ACCOUNT."
   (keytar--ckeck)
-  (shell-command-to-string (format "keytar get-pass -s %s -a %s" service account)))
+  (keytar--execute-string (format "keytar get-pass -s %s -a %s" service account)))
 
 (defun keytar-set-password (service account password)
   "Save the PASSWORD for the SERVICE and ACCOUNT to the keychain.
 
 Adds a new entry if necessary, or updates an existing entry if one exists."
   (keytar--ckeck)
-  (keytar--safe-execute (format "keytar set-pass -s %s -a %s -p %s"
-                                service account password)))
+  (keytar--execute (format "keytar set-pass -s %s -a %s -p %s"
+                           service account password)))
 
 (defun keytar-delete-password (service account)
   "Delete the stored password for the SERVICE and ACCOUNT."
   (keytar--ckeck)
-  (keytar--safe-execute (format "keytar delete-pass -s %s -a %s" service account)))
+  (keytar--execute (format "keytar delete-pass -s %s -a %s" service account)))
 
 (defun keytar-find-credentials (service)
   "Find all accounts and password for the SERVICE in the keychain."
   (keytar--ckeck)
-  (shell-command-to-string (format "keytar find-creds -s %s" service)))
+  (keytar--execute-string (format "keytar find-creds -s %s" service)))
 
 (defun keytar-find-password (service)
   "Find a password for the SERVICE in the keychain.
 
 This is ideal for scenarios where an account is not required."
   (keytar--ckeck)
-  (shell-command-to-string (format "keytar find-pass -s %s" service)))
+  (keytar--execute-string (format "keytar find-pass -s %s" service)))
 
 (provide 'keytar)
 ;;; keytar.el ends here
