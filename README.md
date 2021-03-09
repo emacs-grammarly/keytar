@@ -34,7 +34,7 @@ List of supported API ported from [node-keytar](https://www.npmjs.com/package/ke
 
 *P.S. Checkout the [node-keytar#docs](https://github.com/atom/node-keytar#docs) for details*
 
-### Examples
+## Examples
 
 A small example to use this library in Emacs Lisp.
 
