@@ -32,6 +32,9 @@
 
 ;;; Code:
 
+(defconst keytar-package-name "keytar-cli-2"
+  "NPM package name for keytar to execute.")
+
 ;;
 ;; (@* "Util" )
 ;;
@@ -48,7 +51,14 @@
 (defun keytar--ckeck ()
   "Key before using `keytar-cli-2'."
   (unless (keytar-installed-p)
-    (user-error "[ERROR] Make sure you have install `keytar-cli-2` through `npm`")))
+    (user-error "[ERROR] Make sure you have installed `keytar-cli-2` through `npm`")))
+
+(defun keytar-install ()
+  "Install keytar package through npm."
+  (interactive)
+  (if (keytar--safe-execute (format "npm install -g %s" keytar-package-name))
+      (message "Successfully install %s through `npm`!" keytar-package-name)
+    (user-error "Failed to install %s through `npm`..." keytar-package-name)))
 
 ;;
 ;; (@* "API" )
@@ -75,14 +85,14 @@ Adds a new entry if necessary, or updates an existing entry if one exists."
 (defun keytar-find-credentials (service)
   "Find all accounts and password for the SERVICE in the keychain."
   (keytar--ckeck)
-  (keytar--safe-execute (format "keytar find-creds -s %s" service)))
+  (shell-command-to-string (format "keytar find-creds -s %s" service)))
 
 (defun keytar-find-password (service)
   "Find a password for the SERVICE in the keychain.
 
 This is ideal for scenarios where an account is not required."
   (keytar--ckeck)
-  (keytar--safe-execute (format "keytar find-pass -s %s" service)))
+  (shell-command-to-string (format "keytar find-pass -s %s" service)))
 
 (provide 'keytar)
 ;;; keytar.el ends here
