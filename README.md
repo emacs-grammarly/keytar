@@ -8,7 +8,19 @@ using [keytar-cli-2](https://github.com/emacs-grammarly/keytar-cli-2).
 
 ## Installation
 
+You will need [keytar-cli-2](https://github.com/emacs-grammarly/keytar-cli-2)
+before using this library.
 
+```
+(require 'keytar)
+(keytar-install)
+```
+
+or
+
+```el
+npm install -g keytar-cli-2
+```
 
 ## Contribution
 
