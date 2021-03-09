@@ -11,15 +11,15 @@ using [keytar-cli-2](https://github.com/emacs-grammarly/keytar-cli-2).
 You will need [keytar-cli-2](https://github.com/emacs-grammarly/keytar-cli-2)
 before using this library.
 
+```bash
+npm install -g keytar-cli-2
+```
+
+or after you have install `keytar` in your `load-path`. Do the following,
+
 ```
 (require 'keytar)
 (keytar-install)
-```
-
-or
-
-```el
-npm install -g keytar-cli-2
 ```
 
 ## Contribution
