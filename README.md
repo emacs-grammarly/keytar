@@ -3,7 +3,12 @@
 
 # keytar
 
-Interface for node-keytar
+Emacs-Lisp interface for [node-keytar](https://www.npmjs.com/package/keytar)
+using [keytar-cli-2](https://github.com/emacs-grammarly/keytar-cli-2).
+
+## Installation
+
+
 
 ## Contribution
 
