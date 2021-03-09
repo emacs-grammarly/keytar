@@ -32,6 +32,8 @@ List of supported API ported from [node-keytar](https://www.npmjs.com/package/ke
 * `keytar-find-credentials`
 * `keytar-find-password`
 
+*P.S. Checkout the [node-keytar#docs](https://github.com/atom/node-keytar#docs) for details*
+
 A small example to use this library in Emacs Lisp.
 
 ```el
