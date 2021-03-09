@@ -32,7 +32,57 @@
 
 ;;; Code:
 
+;;
+;; (@* "Util" )
+;;
 
+(defun keytar--safe-execute (in-cmd)
+  "Correct way to check if IN-CMD execute with or without errors."
+  (let ((inhibit-message t) (message-log-max nil))
+    (= 0 (shell-command in-cmd))))
+
+(defun keytar-installed-p ()
+  "Return non-nil if `keytar-cli-2' installed succesfully."
+  (keytar--safe-execute "keytar --help"))
+
+(defun keytar--ckeck ()
+  "Key before using `keytar-cli-2'."
+  (unless (keytar-installed-p)
+    (user-error "[ERROR] Make sure you have install `keytar-cli-2` through `npm`")))
+
+;;
+;; (@* "API" )
+;;
+
+(defun keytar-get-password (service account)
+  "Get the stored password for the SERVICE and ACCOUNT."
+  (keytar--ckeck)
+  (shell-command-to-string (format "keytar get-pass -s %s -a %s" service account)))
+
+(defun keytar-set-password (service account password)
+  "Save the PASSWORD for the SERVICE and ACCOUNT to the keychain.
+
+Adds a new entry if necessary, or updates an existing entry if one exists."
+  (keytar--ckeck)
+  (keytar--safe-execute (format "keytar set-pass -s %s -a %s -p %s"
+                                service account password)))
+
+(defun keytar-delete-password (service account)
+  "Delete the stored password for the SERVICE and ACCOUNT."
+  (keytar--ckeck)
+  (keytar--safe-execute (format "keytar delete-pass -s %s -a %s" service account)))
+
+(defun keytar-find-credentials (service)
+  "Find all accounts and password for the SERVICE in the keychain."
+  (keytar--ckeck)
+  (keytar--safe-execute (format "keytar find-creds -s %s" service)))
+
+(defun keytar-find-password (service)
+  "Find a password for the SERVICE in the keychain.
+
+This is ideal for scenarios where an account is not required."
+  (keytar--ckeck)
+  (keytar--safe-execute (format "keytar find-pass -s %s" service)))
 
 (provide 'keytar)
 ;;; keytar.el ends here
