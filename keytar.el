@@ -62,7 +62,7 @@
 (defun keytar--ckeck ()
   "Key before using `keytar-cli-2'."
   (unless (keytar-installed-p)
-    (user-error "[ERROR] Make sure you have installed `keytar-cli-2` through `npm`")))
+    (user-error "[ERROR] Make sure you have installed `%s` through `npm`" keytar-package-name)))
 
 (defun keytar--valid-return (result)
   "Return nil if RESULT is invalid output."
@@ -74,8 +74,8 @@
   "Install keytar package through npm."
   (interactive)
   (if (keytar--execute (format "npm install -g %s" keytar-package-name))
-      (message "Successfully install %s through `npm`!" keytar-package-name)
-    (user-error "Failed to install %s through `npm`, make sure you have npm installed"
+      (message "Successfully install `%s` through `npm`!" keytar-package-name)
+    (user-error "Failed to install` %s` through `npm`, make sure you have npm installed"
                 keytar-package-name)))
 
 ;;
