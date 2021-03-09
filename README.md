@@ -3,7 +3,7 @@
 
 # keytar
 
-Emacs-Lisp interface for [node-keytar](https://www.npmjs.com/package/keytar)
+Emacs Lisp interface for [node-keytar](https://www.npmjs.com/package/keytar)
 using [keytar-cli-2](https://github.com/emacs-grammarly/keytar-cli-2).
 
 ## Installation
@@ -17,9 +17,27 @@ npm install -g keytar-cli-2
 
 or after you have install `keytar` in your `load-path`. Do the following,
 
-```
+```el
 (require 'keytar)
 (keytar-install)
+```
+
+## Usage
+
+List of supported API ported from [node-keytar](https://www.npmjs.com/package/keytar).
+
+* `keytar-get-password`
+* `keytar-set-password`
+* `keytar-delete-password`
+* `keytar-find-credentials`
+* `keytar-find-password`
+
+A small example to use this library in Emacs Lisp.
+
+```el
+(keytar-set-password "service1" "testuser" "hello")  ; t
+(keytar-find-credentials "service1")                 ; [ { account: 'testuser', password: 'hello' } ]
+(keytar-find-password "service1")                    ; hello
 ```
 
 ## Contribution
