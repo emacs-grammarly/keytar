@@ -1,10 +1,10 @@
-;;; keytar.el --- Interface for node-keytar  -*- lexical-binding: t; -*-
+;;; keytar.el --- Emacs Lisp interface for node-keytar  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021  Shen, Jen-Chieh
 ;; Created date 2021-03-09 11:52:53
 
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
-;; Description: Interface for node-keytar.
+;; Description: Emacs Lisp interface for node-keytar
 ;; Keyword: keytar password credential secret security
 ;; Version: 0.1.0
 ;; Package-Requires: ((emacs "24.4"))
@@ -27,7 +27,11 @@
 
 ;;; Commentary:
 ;;
-;; Interface for node-keytar.
+;; Emacs Lisp interface for node-keytar
+;;
+;; See,
+;;   - https://www.npmjs.com/package/keytar
+;;   - https://github.com/emacs-grammarly/keytar-cli-2
 ;;
 
 ;;; Code:
