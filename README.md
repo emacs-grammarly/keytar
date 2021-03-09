@@ -15,7 +15,7 @@ before using this library.
 npm install -g keytar-cli-2
 ```
 
-or after you have install `keytar` in your `load-path`. Do the following,
+or after you have installed `keytar.el` in your `load-path`. Do the following,
 
 ```el
 (require 'keytar)
@@ -33,6 +33,8 @@ List of supported API ported from [node-keytar](https://www.npmjs.com/package/ke
 * `keytar-find-password`
 
 *P.S. Checkout the [node-keytar#docs](https://github.com/atom/node-keytar#docs) for details*
+
+### Examples
 
 A small example to use this library in Emacs Lisp.
 
