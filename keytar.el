@@ -66,7 +66,8 @@
 
 (defun keytar--valid-return (result)
   "Return nil if RESULT is invalid output."
-  (if (or (string= "null" result) (string-match-p "TypeError:" result))
+  (if (or (string= "null" result) (string-match-p "TypeError:" result)
+          (string-match-p "Not enough arguments" result))
       nil result))
 
 (defun keytar-install ()
@@ -84,7 +85,8 @@
 (defun keytar-get-password (service account)
   "Get the stored password for the SERVICE and ACCOUNT."
   (keytar--ckeck)
-  (keytar--execute-string (format "keytar get-pass -s %s -a %s" service account)))
+  (keytar--valid-return
+   (keytar--execute-string (format "keytar get-pass -s %s -a %s" service account))))
 
 (defun keytar-set-password (service account password)
   "Save the PASSWORD for the SERVICE and ACCOUNT to the keychain.
