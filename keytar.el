@@ -64,6 +64,11 @@
   (unless (keytar-installed-p)
     (user-error "[ERROR] Make sure you have installed `keytar-cli-2` through `npm`")))
 
+(defun keytar--valid-return (result)
+  "Return nil if RESULT is invalid output."
+  (if (or (string= "null" result) (string-match-p "TypeError:" result))
+      nil result))
+
 (defun keytar-install ()
   "Install keytar package through npm."
   (interactive)
@@ -97,14 +102,16 @@ Adds a new entry if necessary, or updates an existing entry if one exists."
 (defun keytar-find-credentials (service)
   "Find all accounts and password for the SERVICE in the keychain."
   (keytar--ckeck)
-  (keytar--execute-string (format "keytar find-creds -s %s" service)))
+  (keytar--valid-return
+   (keytar--execute-string (format "keytar find-creds -s %s" service))))
 
 (defun keytar-find-password (service)
   "Find a password for the SERVICE in the keychain.
 
 This is ideal for scenarios where an account is not required."
   (keytar--ckeck)
-  (keytar--execute-string (format "keytar find-pass -s %s" service)))
+  (keytar--valid-return
+   (keytar--execute-string (format "keytar find-pass -s %s" service))))
 
 (provide 'keytar)
 ;;; keytar.el ends here
