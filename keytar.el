@@ -31,12 +31,12 @@
 ;;
 ;; See,
 ;;   - https://www.npmjs.com/package/keytar
-;;   - https://github.com/emacs-grammarly/keytar-cli-2
+;;   - https://github.com/emacs-grammarly/keytar-cli
 ;;
 
 ;;; Code:
 
-(defconst keytar-package-name "keytar-cli-2"
+(defconst keytar-package-name "@emacs-grammarly/keytar-cli"
   "NPM package name for keytar to execute.")
 
 ;;
@@ -56,11 +56,11 @@
       (string-trim (shell-command-to-string in-cmd)))))
 
 (defun keytar-installed-p ()
-  "Return non-nil if `keytar-cli-2' installed succesfully."
+  "Return non-nil if `keytar-cli' installed succesfully."
   (keytar--execute "keytar --help"))
 
 (defun keytar--ckeck ()
-  "Key before using `keytar-cli-2'."
+  "Key before using `keytar-cli'."
   (unless (keytar-installed-p)
     (user-error "[ERROR] Make sure you have installed `%s` through `npm`" keytar-package-name)))
 
