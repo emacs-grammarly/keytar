@@ -4,15 +4,15 @@
 # keytar
 
 Emacs Lisp interface for [node-keytar](https://www.npmjs.com/package/keytar)
-using [keytar-cli-2](https://github.com/emacs-grammarly/keytar-cli-2).
+using [@emacs-grammarly/keytar-cli](https://github.com/emacs-grammarly/keytar-cli).
 
 ## Installation
 
-You will need [keytar-cli-2](https://github.com/emacs-grammarly/keytar-cli-2)
+You will need [@emacs-grammarly/keytar-cli](https://github.com/emacs-grammarly/keytar-cli)
 before using this library.
 
 ```bash
-npm install -g keytar-cli-2
+npm install -g @emacs-grammarly/keytar-cli
 ```
 
 or after you have installed `keytar.el` in your `load-path`. Do the following,
