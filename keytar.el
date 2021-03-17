@@ -62,7 +62,8 @@
 (defun keytar--ckeck ()
   "Key before using `keytar-cli'."
   (unless (keytar-installed-p)
-    (user-error "[ERROR] Make sure you have installed `%s` through `npm`" keytar-package-name)))
+    (user-error "[WARNING] Make sure you have installed `%s` through `npm` or hit `M-x keytar-install'"
+                keytar-package-name)))
 
 (defun keytar--valid-return (result)
   "Return nil if RESULT is invalid output."
