@@ -102,12 +102,14 @@
 (defun keytar-install ()
   "Install keytar package through npm."
   (interactive)
-  (if (apply #'keytar--execute (append
-                                `("npm" "install" "-g" ,keytar-package-name)
-                                (when keytar-install-dir `("--prefix" ,keytar-install-dir))))
-      (message "Successfully install `%s` through `npm`!" keytar-package-name)
-    (user-error "Failed to install` %s` through `npm`, make sure you have npm installed"
-                keytar-package-name)))
+  (if (keytar-installed-p)
+      (message "NPM package `%s` is already installed" keytar-package-name)
+    (if (apply #'keytar--execute (append
+                                  `("npm" "install" "-g" ,keytar-package-name)
+                                  (when keytar-install-dir `("--prefix" ,keytar-install-dir))))
+        (message "Successfully install `%s` through `npm`!" keytar-package-name)
+      (user-error "Failed to install` %s` through `npm`, make sure you have npm installed"
+                  keytar-package-name))))
 
 ;;
 ;; (@* "API" )
