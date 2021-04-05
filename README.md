@@ -45,6 +45,13 @@ A small example to use this library in Emacs Lisp.
 (keytar-find-password "service1")                    ; hello
 ```
 
+If you attempt to use `auth-source` then,
+
+```el
+(auth-source-keytar-enable)
+(auth-source-keytar-search :service "service1" :account "testuser")
+```
+
 ## Contribution
 
 If you would like to contribute to this project, you may either
