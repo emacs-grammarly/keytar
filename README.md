@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.com/emacs-grammarly/keytar.svg?branch=master)](https://travis-ci.com/emacs-grammarly/keytar)
-[![CELPA](https://celpa.conao3.com/packages/keytar-badge.svg)](https://celpa.conao3.com/#/keytar)
+[![Build Status](https://travis-ci.com/emacs-grammarly/auth-source-keytar.svg?branch=master)](https://travis-ci.com/emacs-grammarly/auth-source-keytar)
+[![CELPA](https://celpa.conao3.com/packages/auth-source-keytar-badge.svg)](https://celpa.conao3.com/#/auth-source-keytar)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-# keytar
+# auth-source-keytar
 
 Emacs Lisp interface for [node-keytar](https://www.npmjs.com/package/keytar)
 using [@emacs-grammarly/keytar-cli](https://github.com/emacs-grammarly/keytar-cli).
