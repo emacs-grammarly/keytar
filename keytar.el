@@ -3,13 +3,6 @@
 ;; Copyright (C) 2021  Shen, Jen-Chieh
 ;; Created date 2021-03-09 11:52:53
 
-;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
-;; Description: Emacs Lisp interface for node-keytar
-;; Keyword: keytar password credential secret security
-;; Version: 0.1.2
-;; Package-Requires: ((emacs "24.4"))
-;; URL: https://github.com/emacs-grammarly/keytar
-
 ;; This file is NOT part of GNU Emacs.
 
 ;; This program is free software; you can redistribute it and/or modify
