@@ -44,12 +44,12 @@
 (defconst auth-source-keytar-package-name "@emacs-grammarly/keytar-cli"
   "NPM package name for keytar to execute.")
 
-(defcustom auth-source-keytar-install-dir (expand-file-name (locate-user-emacs-file
-                                                             ".cache/keytar"))
+(defcustom auth-source-keytar-install-dir
+  (expand-file-name (locate-user-emacs-file ".cache/keytar"))
   "Absolute path to installation directory of keytar."
   :risky t
   :type 'directory
-  :group 'keytar)
+  :group 'auth-source-keytar)
 
 ;;
 ;; (@* "Util" )
