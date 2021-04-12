@@ -34,12 +34,123 @@
 ;;; Code:
 
 (require 'auth-source)
-(require 'keytar)
+(require 'subr-x)
 
 (defgroup auth-source-keytar nil
   "Keytar integration within auth-source."
   :prefix "auth-source-keytar-"
   :group 'auth-source)
+
+(defconst auth-source-keytar-package-name "@emacs-grammarly/keytar-cli"
+  "NPM package name for keytar to execute.")
+
+(defcustom auth-source-keytar-install-dir (expand-file-name (locate-user-emacs-file
+                                                             ".cache/keytar"))
+  "Absolute path to installation directory of keytar."
+  :risky t
+  :type 'directory
+  :group 'keytar)
+
+;;
+;; (@* "Util" )
+;;
+
+(defun auth-source-keytar--execute (cmd &rest args)
+  "Return non-nil if CMD executed succesfully with ARGS."
+  (save-window-excursion
+    (let ((inhibit-message t) (message-log-max nil))
+      (= 0 (shell-command (concat cmd " "
+                                  (mapconcat #'shell-quote-argument args " ")))))))
+
+(defun auth-source-keytar--execute-string (cmd &rest args)
+  "Return result in string after CMD is executed with ARGS."
+  (save-window-excursion
+    (let ((inhibit-message t) (message-log-max nil))
+      (string-trim (shell-command-to-string
+                    (concat cmd " " (mapconcat #'shell-quote-argument args " ")))))))
+
+(defun auth-source-keytar--exe-path ()
+  "Return path to keytar executable."
+  (let ((path (executable-find
+               (if auth-source-keytar-install-dir
+                   (concat auth-source-keytar-install-dir "/"
+                           (cond ((eq system-type 'windows-nt) "/")
+                                 (t "bin/"))
+                           "keytar")
+                 "keytar"))))
+    (when (and path (file-exists-p path))
+      path)))
+
+(defun auth-source-keytar-installed-p ()
+  "Return non-nil if `keytar-cli' installed succesfully."
+  (auth-source-keytar--exe-path))
+
+(defun auth-source-keytar--ckeck ()
+  "Key before using `keytar-cli'."
+  (unless (auth-source-keytar-installed-p)
+    (user-error "[WARNING] Make sure you have installed `%s` through `npm` or hit `M-x auth-source-keytar-install`"
+                auth-source-keytar-package-name)))
+
+(defun auth-source-keytar--valid-return (result)
+  "Return nil if RESULT is invalid output."
+  (if (or (string= "null" result) (string-match-p "TypeError:" result)
+          (string-match-p "Not enough arguments" result))
+      nil result))
+
+(defun auth-source-keytar-install ()
+  "Install keytar package through npm."
+  (interactive)
+  (if (auth-source-keytar-installed-p)
+      (message "NPM package `%s` is already installed" auth-source-keytar-package-name)
+    (if (apply #'auth-source-keytar--execute (append
+                                              `("npm" "install" "-g" ,auth-source-keytar-package-name)
+                                              (when auth-source-keytar-install-dir `("--prefix" ,auth-source-keytar-install-dir))))
+        (message "Successfully install `%s` through `npm`!" auth-source-keytar-package-name)
+      (user-error "Failed to install` %s` through `npm`, make sure you have npm installed"
+                  auth-source-keytar-package-name))))
+
+;;
+;; (@* "Keytar" )
+;;
+
+(defun auth-source-keytar-get-password (service account)
+  "Get the stored password for the SERVICE and ACCOUNT."
+  (auth-source-keytar--ckeck)
+  (auth-source-keytar--valid-return
+   (auth-source-keytar--execute-string (auth-source-keytar--exe-path) "get-pass"
+                                       "-s" service "-a" account)))
+
+(defun auth-source-keytar-set-password (service account password)
+  "Save the PASSWORD for the SERVICE and ACCOUNT to the keychain.
+
+Adds a new entry if necessary, or updates an existing entry if one exists."
+  (auth-source-keytar--ckeck)
+  (auth-source-keytar--execute (auth-source-keytar--exe-path) "set-pass" "-s" service "-a"
+                               account "-p" password))
+
+(defun auth-source-keytar-delete-password (service account)
+  "Delete the stored password for the SERVICE and ACCOUNT."
+  (auth-source-keytar--ckeck)
+  (auth-source-keytar--execute (auth-source-keytar--exe-path) "delete-pass"
+                               "-s" service "-a" account))
+
+(defun auth-source-keytar-find-credentials (service)
+  "Find all accounts and password for the SERVICE in the keychain."
+  (auth-source-keytar--ckeck)
+  (auth-source-keytar--valid-return
+   (auth-source-keytar--execute-string (auth-source-keytar--exe-path) "find-creds" "-s" service)))
+
+(defun auth-source-keytar-find-password (service)
+  "Find a password for the SERVICE in the keychain.
+
+This is ideal for scenarios where an account is not required."
+  (auth-source-keytar--ckeck)
+  (auth-source-keytar--valid-return
+   (auth-source-keytar--execute-string (auth-source-keytar--exe-path) "find-pass" "-s" service)))
+
+;;
+;; (@* "Auth Source" )
+;;
 
 ;;;###autoload
 (defun auth-source-keytar-enable ()
@@ -61,8 +172,8 @@
 
 See `auth-source-search' for details on the parameters SPEC, SERVICE
 and ACCOUNT."
-  (cond ((and service account) (keytar-get-password service account))
-        (service (keytar-find-credentials service))
+  (cond ((and service account) (auth-source-keytar-get-password service account))
+        (service (auth-source-keytar-find-credentials service))
         (t (user-error "Missing key `service` in search query"))))
 
 (defun auth-source-keytar-backend-parse (entry)
