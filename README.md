@@ -19,8 +19,8 @@ npm install -g @emacs-grammarly/keytar-cli
 or after you have installed `keytar.el` in your `load-path`. Do the following,
 
 ```el
-(require 'auth-source-keytar)
-(auth-source-keytar-install)
+(require 'keytar)
+(keytar-install)
 ```
 
 ## Usage
