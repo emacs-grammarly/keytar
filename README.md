@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.com/emacs-grammarly/auth-source-keytar.svg?branch=master)](https://travis-ci.com/emacs-grammarly/auth-source-keytar)
-[![CELPA](https://celpa.conao3.com/packages/auth-source-keytar-badge.svg)](https://celpa.conao3.com/#/auth-source-keytar)
+[![Build Status](https://travis-ci.com/emacs-grammarly/keytar.svg?branch=master)](https://travis-ci.com/emacs-grammarly/keytar)
+[![CELPA](https://celpa.conao3.com/packages/keytar-badge.svg)](https://celpa.conao3.com/#/keytar)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-# auth-source-keytar
+# keytar
 
 Emacs Lisp interface for [node-keytar](https://www.npmjs.com/package/keytar)
 using [@emacs-grammarly/keytar-cli](https://github.com/emacs-grammarly/keytar-cli).
@@ -16,7 +16,7 @@ before using this library.
 npm install -g @emacs-grammarly/keytar-cli
 ```
 
-or after you have installed `auth-source-keytar.el` in your `load-path`. Do the following,
+or after you have installed `keytar.el` in your `load-path`. Do the following,
 
 ```el
 (require 'auth-source-keytar)
@@ -27,11 +27,11 @@ or after you have installed `auth-source-keytar.el` in your `load-path`. Do the 
 
 List of supported API ported from [node-keytar](https://www.npmjs.com/package/keytar).
 
-* `auth-source-keytar-get-password`
-* `auth-source-keytar-set-password`
-* `auth-source-keytar-delete-password`
-* `auth-source-keytar-find-credentials`
-* `auth-source-keytar-find-password`
+* `keytar-get-password`
+* `keytar-set-password`
+* `keytar-delete-password`
+* `keytar-find-credentials`
+* `keytar-find-password`
 
 *P.S. Checkout the [node-keytar#docs](https://github.com/atom/node-keytar#docs) for details*
 
@@ -40,16 +40,9 @@ List of supported API ported from [node-keytar](https://www.npmjs.com/package/ke
 A small example to use this library in Emacs Lisp.
 
 ```el
-(auth-source-keytar-set-password "service1" "testuser" "hello")  ; t
-(auth-source-keytar-find-credentials "service1")                 ; [ { account: 'testuser', password: 'hello' } ]
-(auth-source-keytar-find-password "service1")                    ; hello
-```
-
-If you attempt to use `auth-source` then,
-
-```el
-(auth-source-keytar-enable)
-(auth-source-keytar-search :service "service1" :account "testuser")
+(keytar-set-password "service1" "testuser" "hello")  ; t
+(keytar-find-credentials "service1")                 ; [ { account: 'testuser', password: 'hello' } ]
+(keytar-find-password "service1")                    ; hello
 ```
 
 ## Contribution
