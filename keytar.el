@@ -99,6 +99,7 @@
           (string-match-p "Not enough arguments" result))
       nil result))
 
+;;;###autoload
 (defun keytar-install ()
   "Install keytar package through npm."
   (interactive)
