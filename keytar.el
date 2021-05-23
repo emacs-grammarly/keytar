@@ -87,7 +87,7 @@
   "Return non-nil if `keytar-cli' installed succesfully."
   (keytar--exe-path))
 
-(defun keytar--ckeck ()
+(defun keytar--check ()
   "Key before using `keytar-cli'."
   (unless (keytar-installed-p)
     (user-error "[WARNING] Make sure you have installed `%s` through `npm` or hit `M-x keytar-install`"
@@ -118,7 +118,7 @@
 
 (defun keytar-get-password (service account)
   "Get the stored password for the SERVICE and ACCOUNT."
-  (keytar--ckeck)
+  (keytar--check)
   (keytar--valid-return
    (keytar--execute-string (keytar--exe-path) "get-pass"
                            "-s" service "-a" account)))
@@ -127,19 +127,19 @@
   "Save the PASSWORD for the SERVICE and ACCOUNT to the keychain.
 
 Adds a new entry if necessary, or updates an existing entry if one exists."
-  (keytar--ckeck)
+  (keytar--check)
   (keytar--execute (keytar--exe-path) "set-pass" "-s" service "-a"
                    account "-p" password))
 
 (defun keytar-delete-password (service account)
   "Delete the stored password for the SERVICE and ACCOUNT."
-  (keytar--ckeck)
+  (keytar--check)
   (keytar--execute (keytar--exe-path) "delete-pass"
                    "-s" service "-a" account))
 
 (defun keytar-find-credentials (service)
   "Find all accounts and password for the SERVICE in the keychain."
-  (keytar--ckeck)
+  (keytar--check)
   (keytar--valid-return
    (keytar--execute-string (keytar--exe-path) "find-creds" "-s" service)))
 
@@ -147,7 +147,7 @@ Adds a new entry if necessary, or updates an existing entry if one exists."
   "Find a password for the SERVICE in the keychain.
 
 This is ideal for scenarios where an account is not required."
-  (keytar--ckeck)
+  (keytar--check)
   (keytar--valid-return
    (keytar--execute-string (keytar--exe-path) "find-pass" "-s" service)))
 
