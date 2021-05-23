@@ -116,6 +116,12 @@
 ;; (@* "API" )
 ;;
 
+(defun keytar-version ()
+  "Return the version of Keytar."
+  (keytar--check)
+  (keytar--valid-return
+   (keytar--execute-string (keytar--exe-path) "--version")))
+
 (defun keytar-get-password (service account)
   "Get the stored password for the SERVICE and ACCOUNT."
   (keytar--check)
