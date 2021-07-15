@@ -2,7 +2,7 @@
 [![CELPA](https://celpa.conao3.com/packages/keytar-badge.svg)](https://celpa.conao3.com/#/keytar)
 [![MELPA](https://melpa.org/packages/keytar-badge.svg)](https://melpa.org/#/keytar)
 [![MELPA Stable](https://stable.melpa.org/packages/keytar-badge.svg)](https://stable.melpa.org/#/keytar)
-[![Build Status](https://travis-ci.com/emacs-grammarly/keytar.svg?branch=master)](https://travis-ci.com/emacs-grammarly/keytar)
+[![CI](https://github.com/emacs-grammarly/keytar/actions/workflows/test.yml/badge.svg)](https://github.com/emacs-grammarly/keytar/actions/workflows/test.yml)
 
 # keytar
 
