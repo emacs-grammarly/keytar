@@ -2,9 +2,10 @@
 [![CELPA](https://celpa.conao3.com/packages/keytar-badge.svg)](https://celpa.conao3.com/#/keytar)
 [![MELPA](https://melpa.org/packages/keytar-badge.svg)](https://melpa.org/#/keytar)
 [![MELPA Stable](https://stable.melpa.org/packages/keytar-badge.svg)](https://stable.melpa.org/#/keytar)
-[![CI](https://github.com/emacs-grammarly/keytar/actions/workflows/test.yml/badge.svg)](https://github.com/emacs-grammarly/keytar/actions/workflows/test.yml)
 
 # keytar
+
+[![CI](https://github.com/emacs-grammarly/keytar/actions/workflows/test.yml/badge.svg)](https://github.com/emacs-grammarly/keytar/actions/workflows/test.yml)
 
 Emacs Lisp interface for [node-keytar](https://www.npmjs.com/package/keytar)
 using [@emacs-grammarly/keytar-cli](https://github.com/emacs-grammarly/keytar-cli).
