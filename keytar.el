@@ -1,6 +1,6 @@
 ;;; keytar.el --- Emacs Lisp interface for node-keytar  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2021  Shen, Jen-Chieh
+;; Copyright (C) 2021-2022  Shen, Jen-Chieh
 ;; Created date 2021-03-09 11:52:53
 
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
