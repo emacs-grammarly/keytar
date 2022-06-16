@@ -2,6 +2,9 @@
          "0.1.2"
          "Emacs Lisp interface for node-keytar")
 
+(website-url "https://github.com/emacs-grammarly/keytar")
+(keywords "keytar" "password" "credential" "secret" "security")
+
 (package-file "keytar.el")
 
 (source "melpa")
