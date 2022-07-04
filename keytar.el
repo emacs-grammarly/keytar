@@ -7,7 +7,7 @@
 ;; URL: https://github.com/emacs-grammarly/keytar
 ;; Version: 0.1.2
 ;; Package-Requires: ((emacs "24.4"))
-;; Keywords: keytar password credential secret security
+;; Keywords: convenience keytar password credential secret security
 
 ;; This file is NOT part of GNU Emacs.
 
