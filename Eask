@@ -3,7 +3,7 @@
          "Emacs Lisp interface for node-keytar")
 
 (website-url "https://github.com/emacs-grammarly/keytar")
-(keywords "keytar" "password" "credential" "secret" "security")
+(keywords "convenience" "keytar" "password" "credential" "secret" "security")
 
 (package-file "keytar.el")
 
