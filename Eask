@@ -1,3 +1,5 @@
+;; -*- mode: eask; lexical-binding: t -*-
+
 (package "keytar"
          "0.1.2"
          "Emacs Lisp interface for node-keytar")
